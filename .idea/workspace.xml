@@ -4,9 +4,6 @@
     <list default="true" id="154100d8-10ad-47ae-bc92-5164276c6329" name="Changes" comment="Adding starter codes.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DatReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/DatReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DrawingPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/DrawingPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IMECEPathFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/IMECEPathFinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/Point.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

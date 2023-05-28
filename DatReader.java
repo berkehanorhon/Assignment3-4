@@ -23,8 +23,10 @@ public class DatReader {
      * @return the result as String
      */
     public String getStringVar(String varName) {
-        // TODO: Your code goes here
-        return "";
+        Pattern p = Pattern.compile("[\\t ]*" + varName + "[\\t ]*=[\\t ]*\"([^\"]+)\"");
+        Matcher m = p.matcher(fileContent);
+        m.find();
+        return m.group(1);
     }
 
     /**
@@ -34,8 +36,19 @@ public class DatReader {
      * @return the result as Double
      */
     public Double getDoubleVar(String varName) {
-        // TODO: Your code goes here
-        return 0.0;
+        Pattern p = Pattern.compile("[\\t ]*" + varName + "[\\t ]*=[\\t ]*([0-9]+(?:\\.[0-9]+)?)");
+        Matcher m = p.matcher(fileContent);
+
+        if (m.find()) {
+            String doubleString = m.group(1);
+            try {
+                return Double.parseDouble(doubleString);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -55,9 +68,12 @@ public class DatReader {
      * @return the result as a Point object
      */
     public Point getPointVar(String varName) {
-        Point p = new Point(0, 0);
-        // TODO: Your code goes here
-        return p;
+        Pattern p = Pattern.compile("[\\t ]*" + varName + "[\\t ]*=\\s*\\((\\s*\\d+\\s*),(\\s*\\d+\\s*)\\)");
+        Matcher m = p.matcher(fileContent);
+        m.find();
+        int x = Integer.parseInt(m.group(1).trim());
+        int y = Integer.parseInt(m.group(2).trim());
+        return new Point(x, y);
     }
 
 }

@@ -15,5 +15,13 @@ public class Point {
         return "(" + x + ", " + y + ")";
     }
 
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
     // You can add additional variables and methods if necessary.
 }
