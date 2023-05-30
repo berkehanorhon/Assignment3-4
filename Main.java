@@ -24,12 +24,13 @@ public class Main
         // Step 1 - construct map data
         IMECEPathFinder map = new IMECEPathFinder(grid_input_file_name, num_rows, num_cols, max_flying_height, fuel_cost_per_unit, climbing_cost_per_unit);
 
-
         // Step 2 - construct DrawingPanel, and get its Graphics context
         /**
          * 0 points if left uncommented
          * */
         // COMMENT OUT THESE LINES BEFORE TURBO TESTING AND SUBMISSION
+        // TODO tam olarak ne istediğinizi anlamadım ama unutmazsam comment yapıcam :D xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
         DrawingPanel panel = new DrawingPanel(num_rows, num_cols);
         Graphics g = panel.getGraphics();
         map.drawGrayscaleMap(g);

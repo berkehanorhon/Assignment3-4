@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="154100d8-10ad-47ae-bc92-5164276c6329" name="Changes" comment="Adding starter codes.">
+    <list default="true" id="154100d8-10ad-47ae-bc92-5164276c6329" name="Changes" comment="Regex completed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/DatReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IMECEPathFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/IMECEPathFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +48,21 @@
       <recent name="C:\Users\Berkehan\IdeaProjects\Sem3Assignment4" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Sem3Assignment4" />
+      <option name="PROGRAM_PARAMETERS" value="sample_IO/sample_1/sample_input.dat" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -58,6 +73,7 @@
       <updated>1684844369289</updated>
       <workItem from="1684844370578" duration="550000" />
       <workItem from="1684844929246" duration="347000" />
+      <workItem from="1685460693471" duration="4330000" />
     </task>
     <task id="LOCAL-00001" summary="Adding starter codes.">
       <created>1684845160967</created>
@@ -73,7 +89,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684845196131</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Regex completed">
+      <created>1685262292396</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1685262292396</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -92,6 +115,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Adding starter codes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding starter codes." />
+    <MESSAGE value="Regex completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Regex completed" />
   </component>
 </project>

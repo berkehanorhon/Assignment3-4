@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 import java.awt.*;
 import java.util.List;
@@ -19,7 +20,23 @@ public class IMECEPathFinder{
         this.climbingCostPerUnit = climbingCostPerUnit;
 
         // TODO: fill the grid variable using data from filename
-
+        // TODO: submitlenmeden önce path düzeltilecek !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        File map_file = new File("sample_IO/sample_1/"+filename);
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(map_file);
+            int y = 0;
+            int x = 0;
+            while (scanner.hasNextInt()) {
+                grid[y][x++] = scanner.nextInt();
+                if (x == cols) {
+                    x = 0;
+                    y++;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -30,10 +47,20 @@ public class IMECEPathFinder{
     public void drawGrayscaleMap(Graphics g){
 
         // TODO: draw the grid, delete the sample drawing with random color values given below
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for (int[] ints : grid)
+            for (int x = 0; x < ints.length; x++) {
+                min = Math.min(ints[x], min);
+                max = Math.max(ints[x], max);
+            }
+        System.out.println(max);
+        System.out.println(min);
+        double s_const = 255.0/(max-min);
         for (int i = 0; i < grid.length; i++)
         {
-            for (int j = 0; j < grid[0].length; j++) {
-                int value = ThreadLocalRandom.current().nextInt(0, 255 + 1);
+            for (int j = 0; j < grid[i].length; j++) {
+                int value = (int)((grid[i][j]-min)*s_const);
                 g.setColor(new Color(value, value, value));
                 g.fillRect(j, i, 1, 1);
             }
