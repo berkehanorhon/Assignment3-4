@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.*;
 import java.awt.*;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class IMECEPathFinder{
     public int[][] grid;
@@ -22,7 +21,7 @@ public class IMECEPathFinder{
         // TODO: fill the grid variable using data from filename
         // TODO: submitlenmeden önce path düzeltilecek !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         File map_file = new File("sample_IO/sample_1/"+filename);
-        Scanner scanner = null;
+        Scanner scanner;
         try {
             scanner = new Scanner(map_file);
             int y = 0;
@@ -39,6 +38,32 @@ public class IMECEPathFinder{
         }
     }
 
+    public double CalculateAdjCost(Point start, Point end){ // TODO hatalı olabilir kontrol edersin
+        try {
+            double h_diff = grid[end.getY()][end.getX()] - grid[start.getY()][start.getX()];
+            double dist = Math.sqrt(Math.pow(start.getX() - end.getX(),2.0) + Math.pow(start.getY() - end.getY(),2.0));
+            return (dist*fuelCostPerUnit) + ((Math.max(h_diff, 0.0))*climbingCostPerUnit);
+        }
+        catch(ArrayIndexOutOfBoundsException e) {
+            throw new ArrayIndexOutOfBoundsException(""+start+end);
+        }
+
+    }
+
+    public double CalculatePathCost(List<Point> pathPointsList, int mission_num){
+        double total = 0.0;
+        for(int i = 1; i < pathPointsList.size(); i++) {
+            Point start = pathPointsList.get(i-1);
+            Point end = pathPointsList.get(i);
+            double h_diff = grid[end.getY()][end.getX()] - grid[start.getY()][start.getX()];
+            h_diff = mission_num == 1?Math.abs(h_diff):h_diff;
+            double dist = 0.0;
+            if (mission_num == 0)
+                dist = Math.sqrt(Math.pow(start.getX() - end.getX(),2.0) + Math.pow(start.getY() - end.getY(),2.0));
+            total = total + (dist*fuelCostPerUnit) + ((Math.max(h_diff, 0.0))*(mission_num == 1?1:climbingCostPerUnit));
+        }
+        return total;
+    }
 
     /**
      * Draws the grid using the given Graphics object.
@@ -54,8 +79,6 @@ public class IMECEPathFinder{
                 min = Math.min(ints[x], min);
                 max = Math.max(ints[x], max);
             }
-        System.out.println(max);
-        System.out.println(min);
         double s_const = 255.0/(max-min);
         for (int i = 0; i < grid.length; i++)
         {
@@ -75,11 +98,62 @@ public class IMECEPathFinder{
     public List<Point> getMostEfficientPath(Point start, Point end) {
 
         List<Point> path = new ArrayList<>();
+        int total_vertex = grid.length*grid[0].length;
+        double[] _1d_grid = new double[total_vertex];
+        Edge[] _1d_edge = new Edge[total_vertex];
+        Arrays.fill(_1d_grid,Double.POSITIVE_INFINITY);
+        PriorityQueue<Integer> PQ = new PriorityQueue<Integer>(total_vertex,Comparator.comparingDouble(o -> _1d_grid[o])); // TODO checklersin doğru mu diye
 
+        _1d_grid[GetOneDimensionEqual(start)] = 0.0;
+
+        PQ.add(GetOneDimensionEqual(start));
+
+        while (!PQ.isEmpty())
+        {
+            int v = PQ.poll();
+            for (Edge e : get_adj_list(ConvertOneToTwo(v)))
+                relax(e,_1d_grid,_1d_edge,PQ);
+        }
+        Point searching = end;
+        path.add(0,searching);
+        try {
+            while ((searching = _1d_edge[GetOneDimensionEqual(searching)].source) != start)
+                path.add(0,searching);
+        }
+        catch(NullPointerException e){
+//            System.out.println("hmm");
+        }
+//        System.out.println("bulduu");
+//        System.out.println(path);
         // TODO: Your code goes here
         // TODO: Implement the Mission 0 algorithm here
 
         return path;
+    }
+
+    public void relax(Edge e, double[] _1d_grid, Edge[] _1d_edge, PriorityQueue<Integer> PQ) {
+        int v = GetOneDimensionEqual(e.getSource());
+        int w = GetOneDimensionEqual(e.getDest());
+        if (_1d_grid[w] > _1d_grid[v] + e.getCost())
+        {
+            _1d_grid[w] = _1d_grid[v] + e.getCost();
+            _1d_edge[w] = e;
+            if (PQ.contains(w)){
+                PQ.remove(w);
+                PQ.add(w);
+            }
+            else
+                PQ.add(w);
+        }
+    }
+    public int GetOneDimensionEqual(Point point){
+        return point.getY()*grid.length+point.getX();
+    }
+
+    public Point ConvertOneToTwo(int one_dim_equal){
+        int y = Math.floorDiv(one_dim_equal, grid.length);
+        int x = one_dim_equal % grid[0].length;
+        return new Point(x,y);
     }
 
     /**
@@ -87,7 +161,7 @@ public class IMECEPathFinder{
      * @return the total cost of this most cost-efficient path when traveling from source to destination
      */
     public double getMostEfficientPathCost(List<Point> path){
-        double totalCost = 0.0;
+        double totalCost = CalculatePathCost(path,0);;
 
         // TODO: Your code goes here, use the output from the getMostEfficientPath() method
 
@@ -100,6 +174,49 @@ public class IMECEPathFinder{
      */
     public void drawMostEfficientPath(Graphics g, List<Point> path){
         // TODO: Your code goes here, use the output from the getMostEfficientPath() method
+        g.setColor(new Color(0, 255, 0));
+        for(Point p : path)
+            g.fillRect(p.getX(), p.getY(), 1, 1);
+    }
+
+    // TODO mission0 ve mission1 icin farkli method yazabilirsin maxFlyingHeight icin belkide gerek yoktur
+    public Point get_adj_coord(Point cur_pos, int yplus, int xplus){
+        int y = cur_pos.getY() + yplus;
+        int x = cur_pos.getX() + xplus;
+        if ((((y > -1)&&(y < grid.length)) && ((x>-1)&&(x < grid[y].length))) && (grid[y][x] <= maxFlyingHeight))
+            return new Point(x,y);
+        return null;
+    }
+
+
+    public ArrayList<Edge> get_adj_list(Point point){
+        ArrayList<Edge> adj_list = new ArrayList<>();
+        ArrayList<Point> adj_coords = new ArrayList<>();
+
+        // Have to be that order
+        adj_coords.add(get_adj_coord(point, 0,-1));
+        adj_coords.add(get_adj_coord(point, 0,1));
+        adj_coords.add(get_adj_coord(point, -1,0));
+        adj_coords.add(get_adj_coord(point, +1,0));
+        adj_coords.add(get_adj_coord(point, 1,-1));
+        adj_coords.add(get_adj_coord(point, -1,-1));
+        adj_coords.add(get_adj_coord(point, 1,1));
+        adj_coords.add(get_adj_coord(point, -1,1));
+        for(Point i : adj_coords)
+            if ((i != null) && (i.getX() < grid[0].length) && (i.getY() < grid.length))
+                adj_list.add(new Edge(point, i, this));
+
+        return adj_list;
+
+
+//        West, (x-1)
+//        East, (x+1)
+//        North, (y-1)
+//        South, (y+1)
+//        South West, (x-1, y+1)
+//        North West, (x-1, y-1)
+//        South East, (x+1, y+1)
+//        North East. (x+1, y-1)
     }
 
     /**
@@ -109,7 +226,20 @@ public class IMECEPathFinder{
      */
     public List<Point> getLowestElevationEscapePath(Point start){
         List<Point> pathPointsList = new ArrayList<>();
-
+        pathPointsList.add(start);
+        Point cur_pos = new Point(start.getX(),start.getY());
+        Point E, SE, NE;
+        while((E = get_adj_coord(cur_pos, 0, 1)) != null) {
+            NE = get_adj_coord(cur_pos, -1, 1);
+            SE = get_adj_coord(cur_pos, 1, 1);
+            Point choosen_dest = E;
+            if ((NE != null) && (Math.abs(grid[cur_pos.getY()][cur_pos.getX()] - grid[NE.getY()][NE.getX()]) < Math.abs(grid[cur_pos.getY()][cur_pos.getX()] - grid[choosen_dest.getY()][choosen_dest.getX()])))
+                choosen_dest = NE;
+            if ((SE != null) && (Math.abs(grid[cur_pos.getY()][cur_pos.getX()] - grid[SE.getY()][SE.getX()]) < Math.abs(grid[cur_pos.getY()][cur_pos.getX()] - grid[choosen_dest.getY()][choosen_dest.getX()])))
+                choosen_dest = SE;
+            pathPointsList.add(choosen_dest);
+            cur_pos = choosen_dest;
+        }
         // TODO: Your code goes here
         // TODO: Implement the Mission 1 greedy approach here
 
@@ -122,11 +252,8 @@ public class IMECEPathFinder{
      * @return the total change in elevation for the entire path
      */
     public int getLowestElevationEscapePathCost(List<Point> pathPointsList){
-        int totalChange = 0;
-
-        // TODO: Your code goes here, use the output from the getLowestElevationEscapePath() method
-
-        return totalChange;
+        double totalChange = 0;
+        return (int) CalculatePathCost(pathPointsList,1);
     }
 
 
@@ -134,6 +261,9 @@ public class IMECEPathFinder{
      * Draw the escape path from source towards East on top of the grayscale map such that it has the lowest elevation change.
      */
     public void drawLowestElevationEscapePath(Graphics g, List<Point> pathPointsList){
+        g.setColor(new Color(255, 255, 0));
+        for(Point p : pathPointsList)
+            g.fillRect(p.getX(), p.getY(), 1, 1);
         // TODO: Your code goes here, use the output from the getLowestElevationEscapePath() method
     }
 

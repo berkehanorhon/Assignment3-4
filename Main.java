@@ -23,20 +23,20 @@ public class Main
 
         // Step 1 - construct map data
         IMECEPathFinder map = new IMECEPathFinder(grid_input_file_name, num_rows, num_cols, max_flying_height, fuel_cost_per_unit, climbing_cost_per_unit);
-
+        //System.out.println("aaaaaaaaaa");
+        //System.out.println(map.grid[mission_1_source.getY()][mission_1_source.getX()]);
         // Step 2 - construct DrawingPanel, and get its Graphics context
-        /**
-         * 0 points if left uncommented
-         * */
-        // COMMENT OUT THESE LINES BEFORE TURBO TESTING AND SUBMISSION
-        // TODO tam olarak ne istediğinizi anlamadım ama unutmazsam comment yapıcam :D xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-        DrawingPanel panel = new DrawingPanel(num_rows, num_cols);
-        Graphics g = panel.getGraphics();
-        map.drawGrayscaleMap(g);
-        /**
-         * 0 points if left uncommented
-         * */
+//        /**
+//         * 0 points if left uncommented
+//         * */
+//        // COMMENT OUT THESE LINES BEFORE TURBO TESTING AND SUBMISSION
+//
+//        DrawingPanel panel = new DrawingPanel(num_rows, num_cols);
+//        Graphics g = panel.getGraphics();
+//        map.drawGrayscaleMap(g);
+//        /**
+//         * 0 points if left uncommented
+//         * */
 
         // Step 3 - get the most cost-efficient path between source and destination Points
         System.out.println("########## Mission 0 ##########");
@@ -49,46 +49,48 @@ public class Main
             double totalCost = map.getMostEfficientPathCost(shortestPath);
             System.out.println("The most cost-efficient path has a cost of: " + totalCost);
 
-            /**
-             * 0 points if left uncommented
-             * */
-
-            map.drawMostEfficientPath(g, shortestPath); // COMMENT OUT THIS LINE BEFORE TURBO TESTING AND SUBMISSION
-
-            /**
-             * 0 points if left uncommented
-             * */
+//            /**
+//             * 0 points if left uncommented
+//             * */
+//
+//            map.drawMostEfficientPath(g, shortestPath); // TODO COMMENT OUT THIS LINE BEFORE TURBO TESTING AND SUBMISSION
+//
+//            /**
+//             * 0 points if left uncommented
+//             * */
         }
 
         // Step 4 - get the lowest elevation Escape Path towards the West from a source Point
         System.out.println("########## Mission 1 ##########");
         List<Point> leastElevationPath = map.getLowestElevationEscapePath(mission_1_source);
+        //System.out.println("aaaaaaaaaaa");
+        //System.out.println(map.grid[leastElevationPath.get(leastElevationPath.size()-1).getY()][leastElevationPath.get(leastElevationPath.size()-1).getX()]);
         System.out.println("The size of the escape path with the least elevation cost: " + leastElevationPath.size());
         int totalChange = map.getLowestElevationEscapePathCost(leastElevationPath);
         System.out.println("The escape path has the least elevation cost of: " + totalChange);
 
-        /**
-         * 0 points if left uncommented
-         * */
-
-        map.drawLowestElevationEscapePath(g, leastElevationPath);  // COMMENT OUT THIS LINE BEFORE TURBO TESTING AND SUBMISSION
-
-        /**
-         * 0 points if left uncommented
-         * */
-
-
-        /**
-         * 0 points if left uncommented
-         * */
-        // Extra example for drawing map
-        // COMMENT OUT THESE LINES BEFORE TURBO TESTING AND SUBMISSION
-        DrawingPanel panel2 = new DrawingPanel(473, 347);
-        Graphics g2 = panel2.getGraphics();
-        drawFunny(g2, 347, 473, "semester.txt");
-        /**
-         * 0 points if left uncommented
-         * */
+//        /**
+//         * 0 points if left uncommented
+//         * */
+//
+//        map.drawLowestElevationEscapePath(g, leastElevationPath);  // TODO COMMENT OUT THIS LINE BEFORE TURBO TESTING AND SUBMISSION
+//
+//        /**
+//         * 0 points if left uncommented
+//         * */
+//
+//
+//        /**
+//         * 0 points if left uncommented
+//         * */
+//        // Extra example for drawing map
+//        // TODO COMMENT OUT THESE LINES BEFORE TURBO TESTING AND SUBMISSION
+////        DrawingPanel panel2 = new DrawingPanel(473, 347);
+////        Graphics g2 = panel2.getGraphics();
+////        drawFunny(g2, 347, 473, "semester.txt");
+//        /**
+//         * 0 points if left uncommented
+//         * */
     }
 
     public static void drawFunny(Graphics g, int height, int width, String filename) {

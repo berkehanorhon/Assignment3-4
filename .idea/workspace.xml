@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="154100d8-10ad-47ae-bc92-5164276c6329" name="Changes" comment="Regex completed">
+    <list default="true" id="154100d8-10ad-47ae-bc92-5164276c6329" name="Changes" comment="Drawing gray scale map done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IMECEPathFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/IMECEPathFinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
@@ -73,7 +73,10 @@
       <updated>1684844369289</updated>
       <workItem from="1684844370578" duration="550000" />
       <workItem from="1684844929246" duration="347000" />
-      <workItem from="1685460693471" duration="4330000" />
+      <workItem from="1685460693471" duration="7038000" />
+      <workItem from="1685509320789" duration="8426000" />
+      <workItem from="1685529568867" duration="5252000" />
+      <workItem from="1685611458151" duration="11026000" />
     </task>
     <task id="LOCAL-00001" summary="Adding starter codes.">
       <created>1684845160967</created>
@@ -96,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685262292396</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Drawing gray scale map done">
+      <created>1685470191691</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1685470191691</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,6 +126,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Adding starter codes." />
     <MESSAGE value="Regex completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Regex completed" />
+    <MESSAGE value="Completed Grayscale Map Drawing and IMECEPathFinder Constructor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed Grayscale Map Drawing and IMECEPathFinder Constructor" />
   </component>
 </project>
